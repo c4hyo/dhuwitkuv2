@@ -84,3 +84,42 @@ class CardJumlah extends StatelessWidget {
     );
   }
 }
+
+class CardList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: Get.width / 4,
+      width: Get.width / 1.1,
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey,
+            blurRadius: 1,
+            offset: Offset(2, 0),
+          ),
+        ],
+        color: Get.theme.primaryColor,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Rp. 100",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 40,
+            ),
+          ),
+          Text(
+            "xxxxx",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

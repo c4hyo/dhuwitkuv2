@@ -1,4 +1,5 @@
 import 'package:dhuwitku_v2/controller/homeController.dart';
+import 'package:dhuwitku_v2/view/screen/user/daftarKeuangan.dart';
 import 'package:dhuwitku_v2/view/screen/user/home.dart';
 import 'package:dhuwitku_v2/view/screen/user/tambahKeuangan.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,7 @@ class UserMain extends StatelessWidget {
 List<Widget> listScreen = [
   HomeScreen(),
   TambahScreen(),
-  Text("list keuangan"),
+  ListKeuangan(),
   Text("Pengaturan"),
 ];
 
