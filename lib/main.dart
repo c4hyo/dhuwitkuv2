@@ -1,4 +1,5 @@
-import 'package:dhuwitku_v2/view/screen/auth/login.dart';
+// import 'package:dhuwitku_v2/view/screen/auth/login.dart';
+import 'package:dhuwitku_v2/view/screen/user/mainUser.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Color(0xFFD6E0D6),
         textTheme: GoogleFonts.nunitoTextTheme(),
       ),
-      home: LoginScreen(),
+      home: UserMain(),
     );
   }
 }
