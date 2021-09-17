@@ -148,6 +148,7 @@ class RegistrasiScreen extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.all(15),
                       child: TextFormField(
+                        obscureText: true,
                         controller: controller.password,
                         cursorColor: Get.theme.primaryColor,
                         decoration: InputDecoration(
@@ -164,6 +165,7 @@ class RegistrasiScreen extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.all(15),
                       child: TextFormField(
+                        obscureText: true,
                         controller: controller.konfirmasiPassword,
                         cursorColor: Get.theme.primaryColor,
                         decoration: InputDecoration(
