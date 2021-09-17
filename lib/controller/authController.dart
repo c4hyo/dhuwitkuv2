@@ -121,5 +121,18 @@ class LupaPasswordController extends AuthController {
     }
     await auth.sendPasswordResetEmail(email: email.text.trim());
     reset();
+    Get.defaultDialog(
+      barrierDismissible: false,
+      title: "Informasi",
+      middleText: "Cek email anda mendapatkan link perubahan kata sandi",
+      confirm: ElevatedButton(
+        onPressed: () {
+          logout();
+          Get.back();
+          Get.back();
+        },
+        child: Text("Tutup"),
+      ),
+    );
   }
 }
