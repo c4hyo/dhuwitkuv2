@@ -32,9 +32,9 @@ class Pengaturan extends StatelessWidget {
                         ),
                         onPressed: () {
                           auth.logout();
-                          data.clear();
                           home.indexHalaman.value = 0;
                           Get.back();
+                          Get.delete<DataController>();
                         },
                         child: Text("Ya"),
                       ),
