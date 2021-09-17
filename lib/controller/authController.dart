@@ -14,6 +14,7 @@ class AuthController extends GetxController {
 
   void logout() async {
     // _user.value = User();
+
     await auth.signOut();
   }
 
@@ -99,7 +100,7 @@ class LoginController extends AuthController {
     }
     try {
       loading.value = true;
-      UserCredential userCredential = await auth.signInWithEmailAndPassword(
+      await auth.signInWithEmailAndPassword(
           email: email.text.trim(), password: password.text.trim());
 
       loading.value = false;

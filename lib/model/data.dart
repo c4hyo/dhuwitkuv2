@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class DataModel {
   String? id;
   String? judul;
@@ -27,9 +29,9 @@ class DataModel {
     };
   }
 
-  factory DataModel.fromMap(Map<String, dynamic> map) {
+  factory DataModel.fromMap(DocumentSnapshot map) {
     return DataModel(
-      id: map['id'],
+      id: map.id,
       judul: map['judul'],
       keterangan: map['keterangan'],
       nominal: map['nominal'],

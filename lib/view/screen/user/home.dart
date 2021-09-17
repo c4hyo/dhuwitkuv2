@@ -1,3 +1,4 @@
+import 'package:dhuwitku_v2/controller/dataController.dart';
 import 'package:dhuwitku_v2/view/component/card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,6 +6,7 @@ import 'package:get/get.dart';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final data = Get.find<DataController>();
     return Container(
       padding: EdgeInsets.all(10),
       child: Column(
@@ -14,11 +16,11 @@ class HomeScreen extends StatelessWidget {
             children: [
               CardTotal(
                 judul: "Jumlah Pengeluaran",
-                nominal: 100,
+                nominal: data.totalPengeluaran.value,
               ),
               CardTotal(
                 judul: "Jumlah Pemasukan",
-                nominal: 500,
+                nominal: data.totalPemasukan.value,
               ),
             ],
           ),
@@ -27,14 +29,14 @@ class HomeScreen extends StatelessWidget {
           ),
           CardJumlah(
             judul: "Pengeluaran",
-            nominal: 7000,
+            nominal: data.jumlahPengeluaran.value,
           ),
           SizedBox(
             height: 20,
           ),
           CardJumlah(
             judul: "Pemasukan",
-            nominal: 7000,
+            nominal: data.jumlahPemasukan.value,
           )
         ],
       ),

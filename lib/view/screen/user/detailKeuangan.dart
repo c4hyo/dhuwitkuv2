@@ -2,10 +2,14 @@ import 'package:dhuwitku_v2/controller/dataController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class TambahScreen extends StatelessWidget {
+class EditKeuanganScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final data = Get.put(DataController());
+    data.nominal.text = Get.arguments['data'].nominal.toString();
+    data.judul.text = Get.arguments['data'].judul.toString();
+    data.keterangan.text = Get.arguments['data'].keterangan.toString();
+    data.jenis.value = Get.arguments['data'].jenis;
     List<String> jenisList = [
       "Pemasukan",
       "Pengeluaran",
@@ -13,6 +17,19 @@ class TambahScreen extends StatelessWidget {
     String? jenis;
 
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        actions: [
+          IconButton(
+            onPressed: () {
+              data.delete(Get.arguments['data'].id);
+              data.reset();
+              Get.back();
+            },
+            icon: Icon(Icons.delete_outline),
+          )
+        ],
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -23,7 +40,7 @@ class TambahScreen extends StatelessWidget {
                 color: Get.theme.primaryColor,
                 child: Center(
                   child: Text(
-                    "Tambah\n Pengeluaran atau Pemasukan",
+                    "Ubah\n Pengeluaran atau Pemasukan",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 30,
@@ -76,7 +93,7 @@ class TambahScreen extends StatelessWidget {
                     fillColor: Colors.grey.shade100,
                     border: InputBorder.none,
                   ),
-                  hint: Text('Jenis Keuangan'),
+                  hint: Text("${data.jenis.value}"),
                   style: TextStyle(
                     color: Get.theme.primaryColor,
                   ),
@@ -121,9 +138,9 @@ class TambahScreen extends StatelessWidget {
                             primary: Get.theme.primaryColor,
                             fixedSize: Size(Get.width / 1.5, Get.height / 18),
                           ),
-                          child: Text("Simpan"),
+                          child: Text("Ubah"),
                           onPressed: () {
-                            data.create();
+                            data.updates(Get.arguments['data'].id);
                           },
                         ),
                 ),
