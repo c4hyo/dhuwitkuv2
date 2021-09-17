@@ -1,3 +1,4 @@
+import 'package:dhuwitku_v2/config/string.dart';
 import 'package:dhuwitku_v2/model/data.dart';
 import 'package:dhuwitku_v2/view/screen/user/detailKeuangan.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +70,7 @@ class CardJumlah extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            "Rp. $nominal",
+            "${rupiah(nominal)}",
             style: TextStyle(
               color: Colors.white,
               fontSize: 40,
@@ -117,16 +118,18 @@ class CardList extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Rp. ${dataModel!.nominal}",
+                  "${rupiah(dataModel!.nominal)}",
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 40,
+                    fontSize: 30,
                   ),
                 ),
                 Text(
                   "${dataModel!.judul}",
                   style: TextStyle(
                     color: Colors.white,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ],
