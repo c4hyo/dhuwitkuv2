@@ -9,7 +9,6 @@ class Pengaturan extends StatelessWidget {
   Widget build(BuildContext context) {
     final auth = Get.find<AuthController>();
     final home = Get.find<HomeController>();
-    final data = Get.find<DataController>();
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
