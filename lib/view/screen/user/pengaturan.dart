@@ -22,9 +22,32 @@ class Pengaturan extends StatelessWidget {
               Card(
                 child: ListTile(
                   onTap: () {
-                    auth.logout();
-                    data.clear();
-                    home.indexHalaman.value = 0;
+                    Get.defaultDialog(
+                      title: "Konfirmasi",
+                      middleText: "Apakah anda keluar",
+                      barrierDismissible: false,
+                      confirm: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Get.theme.primaryColor.withRed(220),
+                        ),
+                        onPressed: () {
+                          auth.logout();
+                          data.clear();
+                          home.indexHalaman.value = 0;
+                          Get.back();
+                        },
+                        child: Text("Ya"),
+                      ),
+                      cancel: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Get.theme.primaryColor,
+                        ),
+                        onPressed: () {
+                          Get.back();
+                        },
+                        child: Text("Tidak"),
+                      ),
+                    );
                   },
                   title: Text("Keluar"),
                   trailing: Icon(
