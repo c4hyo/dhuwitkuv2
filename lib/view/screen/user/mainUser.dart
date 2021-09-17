@@ -1,6 +1,9 @@
+import 'package:dhuwitku_v2/controller/authController.dart';
 import 'package:dhuwitku_v2/controller/homeController.dart';
+import 'package:dhuwitku_v2/view/screen/auth/verifikasiEmail.dart';
 import 'package:dhuwitku_v2/view/screen/user/daftarKeuangan.dart';
 import 'package:dhuwitku_v2/view/screen/user/home.dart';
+import 'package:dhuwitku_v2/view/screen/user/pengaturan.dart';
 import 'package:dhuwitku_v2/view/screen/user/tambahKeuangan.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,25 +12,28 @@ class UserMain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final home = Get.put(HomeController());
+    final auth = Get.find<AuthController>();
     List<Widget> _tabs() => listScreen;
     final List<Widget> _tab = _tabs();
     return Obx(
-      () => Scaffold(
-        bottomNavigationBar: BottomNavigationBar(
-          items: bottomItem,
-          type: BottomNavigationBarType.fixed,
-          currentIndex: home.indexHalaman.value,
-          onTap: (i) => home.indexHalaman.value = i,
-          backgroundColor: Get.theme.primaryColor,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.black,
-        ),
-        body: SafeArea(
-          child: _tab[home.indexHalaman.value],
-        ),
-      ),
+      () => (auth.user?.emailVerified == true)
+          ? Scaffold(
+              bottomNavigationBar: BottomNavigationBar(
+                items: bottomItem,
+                type: BottomNavigationBarType.fixed,
+                currentIndex: home.indexHalaman.value,
+                onTap: (i) => home.indexHalaman.value = i,
+                backgroundColor: Get.theme.primaryColor,
+                showSelectedLabels: false,
+                showUnselectedLabels: false,
+                selectedItemColor: Colors.white,
+                unselectedItemColor: Colors.black,
+              ),
+              body: SafeArea(
+                child: _tab[home.indexHalaman.value],
+              ),
+            )
+          : VerifikasiEmailScreen(),
     );
   }
 }
@@ -36,7 +42,7 @@ List<Widget> listScreen = [
   HomeScreen(),
   TambahScreen(),
   ListKeuangan(),
-  Text("Pengaturan"),
+  Pengaturan(),
 ];
 
 List<BottomNavigationBarItem> bottomItem = [

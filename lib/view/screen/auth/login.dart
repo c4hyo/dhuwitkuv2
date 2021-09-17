@@ -8,6 +8,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(LoginController());
+    final auth = Get.put(AuthController());
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -151,13 +152,22 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                     Center(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Get.theme.primaryColor,
-                          fixedSize: Size(Get.width / 1.5, Get.height / 18),
-                        ),
-                        child: Text("Login"),
-                        onPressed: () => print("login"),
+                      child: Obx(
+                        () => (controller.loading.isTrue)
+                            ? Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: Get.theme.primaryColor,
+                                  fixedSize:
+                                      Size(Get.width / 1.5, Get.height / 18),
+                                ),
+                                child: Text("Login"),
+                                onPressed: () {
+                                  controller.login();
+                                },
+                              ),
                       ),
                     ),
                     Padding(

@@ -178,15 +178,22 @@ class RegistrasiScreen extends StatelessWidget {
                       ),
                     ),
                     Center(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Get.theme.primaryColor,
-                          fixedSize: Size(Get.width / 1.5, Get.height / 18),
-                        ),
-                        child: Text("Registrasi"),
-                        onPressed: () {
-                          controller.registrasi();
-                        },
+                      child: Obx(
+                        () => (controller.loading.isTrue)
+                            ? Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: Get.theme.primaryColor,
+                                  fixedSize:
+                                      Size(Get.width / 1.5, Get.height / 18),
+                                ),
+                                child: Text("Registrasi"),
+                                onPressed: () {
+                                  controller.registrasi();
+                                },
+                              ),
                       ),
                     ),
                   ],

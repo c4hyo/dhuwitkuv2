@@ -1,14 +1,63 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class RegistrasiController extends GetxController {
+class AuthController extends GetxController {
   final email = TextEditingController();
   final password = TextEditingController();
   final nama = TextEditingController();
   final konfirmasiPassword = TextEditingController();
+  FirebaseAuth auth = FirebaseAuth.instance;
+
+  Rxn<User> _user = Rxn<User>();
+  User? get user => _user.value;
+
+  void logout() async {
+    // _user.value = User();
+    await auth.signOut();
+  }
+
+  void sendEmailVerification() async {
+    await user?.sendEmailVerification();
+    Get.defaultDialog(
+      barrierDismissible: false,
+      title: "Informasi",
+      middleText: "Cek email anda untuk verifikasi akun",
+      confirm: ElevatedButton(
+        onPressed: () {
+          logout();
+          Get.back();
+        },
+        child: Text("Tutup"),
+      ),
+    );
+  }
+
+  void reset() {
+    email.clear();
+    password.clear();
+    konfirmasiPassword.clear();
+    nama.clear();
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    _user.bindStream(auth.authStateChanges());
+  }
+}
+
+class AuthBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.put(AuthController(), permanent: true);
+  }
+}
+
+class RegistrasiController extends AuthController {
   var loading = false.obs;
 
-  void registrasi() {
+  void registrasi() async {
     if (email.text.trim().isEmpty ||
         nama.text.trim().isEmpty ||
         password.text.trim().isEmpty ||
@@ -27,6 +76,14 @@ class RegistrasiController extends GetxController {
     }
     try {
       loading.value = true;
+      UserCredential userCredential = await auth.createUserWithEmailAndPassword(
+        email: email.text.trim(),
+        password: password.text.trim(),
+      );
+      userCredential.user!.updateDisplayName(nama.text.trim());
+      loading.value = false;
+      reset();
+      Get.back();
     } catch (e) {
       loading.value = false;
       Get.snackbar("Error", e.toString());
@@ -34,21 +91,34 @@ class RegistrasiController extends GetxController {
   }
 }
 
-class LoginController extends GetxController {
-  final email = TextEditingController();
-  final password = TextEditingController();
-  void login() {
+class LoginController extends AuthController {
+  var loading = false.obs;
+  void login() async {
     if (email.text.trim().isEmpty || password.text.trim().isEmpty) {
       Get.snackbar("Error", "Form harus di isi semua");
+    }
+    try {
+      loading.value = true;
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(
+          email: email.text.trim(), password: password.text.trim());
+
+      loading.value = false;
+
+      reset();
+    } catch (e) {
+      loading.value = false;
+      Get.snackbar("Error", e.toString());
     }
   }
 }
 
-class LupaPasswordController extends GetxController {
-  final email = TextEditingController();
-  void lupaPassword() {
+class LupaPasswordController extends AuthController {
+  var loading = false.obs;
+  void lupaPassword() async {
     if (email.text.trim().isEmpty) {
       Get.snackbar("Error", "Email harus di isi");
     }
+    await auth.sendPasswordResetEmail(email: email.text.trim());
+    reset();
   }
 }
